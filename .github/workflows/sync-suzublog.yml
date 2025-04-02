@@ -1,0 +1,64 @@
+name: Sync SuzuBlog Main Branch 🎐
+
+on:
+  # Manually trigger the workflow
+  workflow_dispatch:
+  # Automatically trigger the workflow every Sunday at 00:00 UTC
+  schedule:
+    - cron: '0 0 * * 0'
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      # Step 0: Check if the repository is SuzuBlog
+      - name: Determine Repository Context 🕵️‍♀️
+        id: repo-check
+        run: |
+          if [[ "${{ github.repository }}" == "ZL-Asica/SuzuBlog" ]]; then
+            echo "target_branch=blog" >> $GITHUB_OUTPUT
+          else
+            echo "target_branch=main" >> $GITHUB_OUTPUT
+          fi
+
+      # Step 1: Checkout target branch
+      - name: Checkout target branch 🚀
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ steps.repo-check.outputs.target_branch }}
+
+      # Step 2: If is not SuzuBlog, clone main branch of SuzuBlog
+      - name: Clone SuzuBlog repo 🌸
+        run: |
+          git clone --branch main --depth 1 https://github.com/ZL-Asica/SuzuBlog.git suzublog
+
+      # Step 3: Sync content excluding specific paths
+      - name: Sync content excluding specific paths ✨
+        run: |
+          rsync -av --delete \
+            --exclude="/.git/**" \
+            --exclude="/config.yml" \
+            --exclude="/posts/**" \
+            --exclude="/public/**" \
+            --exclude="/suzublog/**" \
+            suzublog/ .
+
+      # Step 4: Delete the cloned SuzuBlog repo
+      - name: Clean up temporary files 🧹
+        run: |
+          rm -rf suzublog
+
+      # Step 5: Commit and push changes
+      - name: Commit and push changes 📝
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add --all
+          git status
+          git commit -m "✨ Sync from SuzuBlog main branch" || echo "No changes to commit"
+          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} HEAD:${{ steps.repo-check.outputs.target_branch }}

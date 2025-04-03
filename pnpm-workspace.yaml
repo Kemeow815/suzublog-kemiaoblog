@@ -1,0 +1,4 @@
+onlyBuiltDependencies:
+  - '@vercel/speed-insights'
+  - '@zl-asica/react'
+  - sharp

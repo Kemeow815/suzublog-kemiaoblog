@@ -23,10 +23,19 @@ const en: Translation = {
     description: '\'s friends page, where you can see all the friends.',
     avatar: 'Avatar',
   },
+  music: {
+    title: 'Music',
+    description: '\'s music page, where you can see all the songs.',
+    url: 'https://music.kemiao.online/',
+  },
+  shuoshuo: {
+    title: 'shuoshuo',
+    description: '\'s recent page, where you can see the webmaster\'s recent says.',
+    url: '/shuoshuo/',
+  },
   about: {
     title: 'About',
-    description:
-      '\'s about page, where you can see some information about the webmaster. Check out the webmaster\'s personal story.',
+    description: '\'s about page, where you can see some information about the webmaster. Check out the webmaster\'s personal story.',
   },
   anime: {
     title: 'Anime List',

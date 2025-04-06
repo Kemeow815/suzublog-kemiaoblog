@@ -2,7 +2,7 @@
 
 import type { ReactElement } from 'react'
 import { useTheme } from '@zl-asica/react'
-import { House, Info, Moon, Music2, Newspaper, Notebook, Sun, TrainFront, TvMinimalPlay, UsersRound } from 'lucide-react'
+import { House, Info, Moon, Newspaper, Sun, TrainFront, TvMinimalPlay, UsersRound } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { Fragment } from 'react'
@@ -30,8 +30,6 @@ const HeaderMenu = ({ config, isMobile, ulClassName, onClickHandler }: HeaderMen
     { href: '/', label: translation.home.title, icon: <House /> },
     { href: '/posts', label: translation.posts.title, icon: <Newspaper /> },
     { href: '/friends', label: translation.friends.title, icon: <UsersRound /> },
-    { href: 'https://music.kemiao.online', label: translation.music.title, icon: <Music2 /> },
-    { href: 'https://shuoshuo.kemiao.online', label: translation.shuoshuo.title, icon: <Notebook /> },
     { href: '/about', label: translation.about.title, icon: <Info /> },
   ]
 
@@ -91,23 +89,25 @@ const HeaderMenu = ({ config, isMobile, ulClassName, onClickHandler }: HeaderMen
 
           {/* Mobile - sub menu */}
           {isMobile && item.children && (
-            <ul className="ml-6 border-l-2 border-gray-600 pl-3">
-              {item.children.map(subItem => (
-                <li key={subItem.href}>
-                  <Link
-                    href={subItem.href}
-                    title={subItem.label}
-                    onClick={onClickHandler}
-                    className={`flex items-center gap-2 py-2 text-base text-hover-primary
+            <li>
+              <ul className="ml-6 border-l-2 border-gray-600 pl-3">
+                {item.children.map(subItem => (
+                  <li key={subItem.href}>
+                    <Link
+                      href={subItem.href}
+                      title={subItem.label}
+                      onClick={onClickHandler}
+                      className={`flex items-center gap-2 py-2 text-base text-hover-primary
                       ${currentPath.startsWith(subItem.href) ? 'text-primary' : ''}
                       `}
-                  >
-                    {subItem.icon}
-                    <span className="whitespace-nowrap">{subItem.label}</span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
+                    >
+                      {subItem.icon}
+                      <span className="whitespace-nowrap">{subItem.label}</span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </li>
           )}
 
           {/* Mobile - Divider */}

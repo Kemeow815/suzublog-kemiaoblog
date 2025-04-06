@@ -23,16 +23,6 @@ interface Translation {
     description: string
     avatar: string
   }
-  music: {
-    title: string
-    description: string
-    url: string
-  }
-  shuoshuo: {
-    title: string
-    description: string
-    url: string
-  }
   about: {
     title: string
     description: string

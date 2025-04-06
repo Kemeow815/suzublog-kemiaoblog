@@ -23,16 +23,6 @@ const ja: Translation = {
     description: 'の友達ページです。全てのリンクをご覧いただけます。',
     avatar: 'アバター',
   },
-  music: {
-    title: '音乐',
-    description: 'の音乐ページです。',
-    url: 'https://music.kemiao.online/',
-  },
-  shuoshuo: {
-    title: 'shuoshuo',
-    description: '\'s music page, where you can see all the songs.',
-    url: '/shuoshuo/',
-  },
   about: {
     title: '概要',
     description:
